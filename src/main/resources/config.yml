@@ -1,0 +1,470 @@
+# ═══════════════════════════════════════════════════════════
+#           CustomTagSystem - Sistema de Tags v1.0
+# ═══════════════════════════════════════════════════════════
+
+# Configuración de títulos de GUI
+gui-titles:
+  main-menu: "&8&l⚡ Tienda de Tags"
+
+# Configuración del Tablist
+tablist:
+  prefix: ""
+  suffix: " {tag}"
+
+# Mensajes del sistema
+messages:
+  no-permission: "&cNo tienes permiso para hacer esto."
+  reload-success: "&a¡Configuración recargada exitosamente!"
+  tag-activated: "&a¡Tag activado! {tag}"
+  tag-already-active: "&cEste tag ya está activo."
+  tag-removed: "&e¡Tag removido!"
+  tag-purchased: "&a¡Compraste el tag {tag} por &6${price}&a!"
+  insufficient-money: "&cNo tienes suficiente dinero. Precio: &6${price}"
+  no-permission-tag: "&cNo tienes permiso para comprar este tag."
+
+# ═══════════════════════════════════════════════════════════
+#                      CATEGORÍAS DE TAGS
+# ═══════════════════════════════════════════════════════════
+
+categories:
+
+  # ═══════════════════════════════════════════════════════════
+  # CATEGORÍA: INICIALES
+  # ═══════════════════════════════════════════════════════════
+  iniciales:
+    display-name: "Iniciales"
+    icon: "NAME_TAG"
+    slot: 20
+    tags:
+      a:
+        display: "&e[A]"
+        price: 100
+        permission: ""
+      b:
+        display: "&b[B]"
+        price: 100
+        permission: ""
+      c:
+        display: "&c[C]"
+        price: 100
+        permission: ""
+      d:
+        display: "&d[D]"
+        price: 100
+        permission: ""
+      e:
+        display: "&a[E]"
+        price: 100
+        permission: ""
+      f:
+        display: "&6[F]"
+        price: 100
+        permission: ""
+      g:
+        display: "&2[G]"
+        price: 100
+        permission: ""
+      h:
+        display: "&3[H]"
+        price: 100
+        permission: ""
+      i:
+        display: "&9[I]"
+        price: 100
+        permission: ""
+      j:
+        display: "&5[J]"
+        price: 100
+        permission: ""
+      k:
+        display: "&c[K]"
+        price: 100
+        permission: ""
+      l:
+        display: "&e[L]"
+        price: 100
+        permission: ""
+      m:
+        display: "&b[M]"
+        price: 100
+        permission: ""
+      n:
+        display: "&d[N]"
+        price: 100
+        permission: ""
+      o:
+        display: "&a[O]"
+        price: 100
+        permission: ""
+      p:
+        display: "&6[P]"
+        price: 100
+        permission: ""
+      q:
+        display: "&c[Q]"
+        price: 100
+        permission: ""
+      r:
+        display: "&e[R]"
+        price: 100
+        permission: ""
+      s:
+        display: "&b[S]"
+        price: 100
+        permission: ""
+      t:
+        display: "&3[T]"
+        price: 100
+        permission: ""
+      u:
+        display: "&5[U]"
+        price: 100
+        permission: ""
+      v:
+        display: "&a[V]"
+        price: 100
+        permission: ""
+      w:
+        display: "&6[W]"
+        price: 100
+        permission: ""
+      x:
+        display: "&c[X]"
+        price: 100
+        permission: ""
+      y:
+        display: "&e[Y]"
+        price: 100
+        permission: ""
+      z:
+        display: "&d[Z]"
+        price: 100
+        permission: ""
+
+  # ═══════════════════════════════════════════════════════════
+  # CATEGORÍA: NÚMEROS
+  # ═══════════════════════════════════════════════════════════
+  numeros:
+    display-name: "Números"
+    icon: "PAPER"
+    slot: 22
+    tags:
+      num_0:
+        display: "&7[0]"
+        price: 150
+        permission: ""
+      num_1:
+        display: "&e[1]"
+        price: 150
+        permission: ""
+      num_2:
+        display: "&b[2]"
+        price: 150
+        permission: ""
+      num_3:
+        display: "&c[3]"
+        price: 150
+        permission: ""
+      num_4:
+        display: "&a[4]"
+        price: 150
+        permission: ""
+      num_5:
+        display: "&d[5]"
+        price: 150
+        permission: ""
+      num_6:
+        display: "&6[6]"
+        price: 150
+        permission: ""
+      num_7:
+        display: "&5[7]"
+        price: 150
+        permission: ""
+      num_8:
+        display: "&3[8]"
+        price: 150
+        permission: ""
+      num_9:
+        display: "&9[9]"
+        price: 150
+        permission: ""
+      num_10:
+        display: "&e[10]"
+        price: 200
+        permission: ""
+      num_99:
+        display: "&6[99]"
+        price: 300
+        permission: ""
+      num_100:
+        display: "&c[100]"
+        price: 500
+        permission: ""
+      num_777:
+        display: "&6&l[777]"
+        price: 1000
+        permission: ""
+      num_1000:
+        display: "&a&l[1000]"
+        price: 1500
+        permission: ""
+
+  # ═══════════════════════════════════════════════════════════
+  # CATEGORÍA: PAÍSES
+  # ═══════════════════════════════════════════════════════════
+  paises:
+    display-name: "Países"
+    icon: "BANNER"
+    slot: 24
+    tags:
+      mexico:
+        display: "&a&lMEX"
+        price: 500
+        permission: ""
+      argentina:
+        display: "&b&lARG"
+        price: 500
+        permission: ""
+      espana:
+        display: "&c&lESP"
+        price: 500
+        permission: ""
+      chile:
+        display: "&c&lCHL"
+        price: 500
+        permission: ""
+      colombia:
+        display: "&e&lCOL"
+        price: 500
+        permission: ""
+      peru:
+        display: "&c&lPER"
+        price: 500
+        permission: ""
+      venezuela:
+        display: "&e&lVEN"
+        price: 500
+        permission: ""
+      uruguay:
+        display: "&9&lURU"
+        price: 500
+        permission: ""
+      brasil:
+        display: "&a&lBRA"
+        price: 500
+        permission: ""
+      usa:
+        display: "&c&lUSA"
+        price: 500
+        permission: ""
+      canada:
+        display: "&c&lCAN"
+        price: 500
+        permission: ""
+      francia:
+        display: "&9&lFRA"
+        price: 500
+        permission: ""
+      alemania:
+        display: "&e&lGER"
+        price: 500
+        permission: ""
+      italia:
+        display: "&a&lITA"
+        price: 500
+        permission: ""
+      japon:
+        display: "&c&lJPN"
+        price: 500
+        permission: ""
+      china:
+        display: "&c&lCHN"
+        price: 500
+        permission: ""
+      corea:
+        display: "&b&lKOR"
+        price: 500
+        permission: ""
+      rusia:
+        display: "&c&lRUS"
+        price: 500
+        permission: ""
+
+  # ═══════════════════════════════════════════════════════════
+  # CATEGORÍA: SÍMBOLOS/CARACTERES
+  # ═══════════════════════════════════════════════════════════
+  simbolos:
+    display-name: "Símbolos"
+    icon: "DIAMOND"
+    slot: 29
+    tags:
+      star:
+        display: "&e★"
+        price: 300
+        permission: ""
+      heart:
+        display: "&c❤"
+        price: 300
+        permission: ""
+      crown:
+        display: "&6♔"
+        price: 500
+        permission: ""
+      fire:
+        display: "&c🔥"
+        price: 400
+        permission: ""
+      lightning:
+        display: "&e⚡"
+        price: 400
+        permission: ""
+      sword:
+        display: "&7⚔"
+        price: 350
+        permission: ""
+      shield:
+        display: "&b🛡"
+        price: 350
+        permission: ""
+      skull:
+        display: "&8☠"
+        price: 400
+        permission: ""
+      diamond:
+        display: "&b◆"
+        price: 600
+        permission: ""
+      gem:
+        display: "&d💎"
+        price: 700
+        permission: ""
+      check:
+        display: "&a✔"
+        price: 250
+        permission: ""
+      cross:
+        display: "&c✖"
+        price: 250
+        permission: ""
+      arrow:
+        display: "&e➤"
+        price: 300
+        permission: ""
+      infinity:
+        display: "&d∞"
+        price: 800
+        permission: ""
+      omega:
+        display: "&5Ω"
+        price: 500
+        permission: ""
+
+  # ═══════════════════════════════════════════════════════════
+  # CATEGORÍA: VARIADO
+  # ═══════════════════════════════════════════════════════════
+  variado:
+    display-name: "Variado"
+    icon: "CHEST"
+    slot: 33
+    tags:
+      noob:
+        display: "&7[NOOB]"
+        price: 200
+        permission: ""
+      pro:
+        display: "&a&l[PRO]"
+        price: 500
+        permission: ""
+      gang:
+        display: "&5[GANG]"
+        price: 400
+        permission: ""
+      ping:
+        display: "&e[PING]"
+        price: 300
+        permission: ""
+      vip:
+        display: "&6&l[VIP]"
+        price: 1000
+        permission: ""
+      mvp:
+        display: "&b&l[MVP]"
+        price: 1500
+        permission: ""
+      legend:
+        display: "&c&l[LEGEND]"
+        price: 2000
+        permission: ""
+      godlike:
+        display: "&5&l[GODLIKE]"
+        price: 3000
+        permission: ""
+      beast:
+        display: "&c[BEAST]"
+        price: 800
+        permission: ""
+      toxic:
+        display: "&2[TOXIC]"
+        price: 600
+        permission: ""
+      savage:
+        display: "&4[SAVAGE]"
+        price: 700
+        permission: ""
+      tryhard:
+        display: "&9[TRYHARD]"
+        price: 500
+        permission: ""
+      chill:
+        display: "&b[CHILL]"
+        price: 400
+        permission: ""
+      gamer:
+        display: "&d[GAMER]"
+        price: 600
+        permission: ""
+      hacker:
+        display: "&a[HACKER]"
+        price: 900
+        permission: ""
+      ninja:
+        display: "&8[NINJA]"
+        price: 800
+        permission: ""
+      warrior:
+        display: "&c[WARRIOR]"
+        price: 700
+        permission: ""
+      mage:
+        display: "&5[MAGE]"
+        price: 700
+        permission: ""
+      demon:
+        display: "&4[DEMON]"
+        price: 1000
+        permission: ""
+      angel:
+        display: "&f[ANGEL]"
+        price: 1000
+        permission: ""
+      king:
+        display: "&6&l[KING]"
+        price: 2500
+        permission: ""
+      queen:
+        display: "&d&l[QUEEN]"
+        price: 2500
+        permission: ""
+      boss:
+        display: "&4&l[BOSS]"
+        price: 3000
+        permission: ""
+      alpha:
+        display: "&c&l[ALPHA]"
+        price: 2000
+        permission: ""
+      omega_word:
+        display: "&5&l[OMEGA]"
+        price: 2000
+        permission: ""
