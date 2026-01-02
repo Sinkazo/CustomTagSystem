@@ -1,6 +1,7 @@
 package org.customTagSystem.gui;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -76,10 +77,13 @@ public class CategoryGUI implements Listener {
             // Traducir el display del tag para mostrarlo correctamente
             String translatedDisplay = org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay());
 
+            // Crear previsualización con el nombre del jugador
+            String preview = ChatColor.WHITE + player.getName() + " " + translatedDisplay;
+
             if (hasTag) {
                 material = isActive ? Material.LIME_DYE : Material.PAPER;
                 displayName = "§e" + tag.getName();
-                lore.add("§7Vista previa: §r" + translatedDisplay);
+                lore.add("§7Vista previa: §r" + preview);
                 lore.add("");
                 if (isActive) {
                     lore.add("§a✔ Tag Activo");
@@ -91,7 +95,7 @@ public class CategoryGUI implements Listener {
             } else {
                 material = Material.GRAY_DYE;
                 displayName = "§7" + tag.getName();
-                lore.add("§7Vista previa: §r" + translatedDisplay);
+                lore.add("§7Vista previa: §r" + preview);
                 lore.add("");
                 lore.add("§7Estado: §cBloqueado");
                 lore.add("§7Precio: §6" + tag.getPrice() + " monedas");
