@@ -1,3 +1,4 @@
+
 # ═══════════════════════════════════════════════════════════
 #           CustomTagSystem - Sistema de Tags v1.0
 # ═══════════════════════════════════════════════════════════
@@ -10,6 +11,29 @@ gui-titles:
 tablist:
   prefix: ""
   suffix: " {tag}"
+
+# Configuración de Paginación
+pagination:
+  # Número de tags por página (máximo 28)
+  tags-per-page: 28
+
+  # Botón de página siguiente
+  next-page:
+    slot: 50
+    material: "ARROW"
+    name: "&a&lPágina Siguiente »"
+
+  # Botón de página anterior
+  previous-page:
+    slot: 48
+    material: "ARROW"
+    name: "&c&l« Página Anterior"
+
+  # Botón de volver
+  back-button:
+    slot: 49
+    material: "BARRIER"
+    name: "&c&l« Volver"
 
 # Mensajes del sistema
 messages:
@@ -25,7 +49,6 @@ messages:
 # ═══════════════════════════════════════════════════════════
 #                      CATEGORÍAS DE TAGS
 # ═══════════════════════════════════════════════════════════
-
 categories:
 
   # ═══════════════════════════════════════════════════════════
@@ -141,6 +164,18 @@ categories:
         price: 100
         permission: ""
       Z:
+        display: "&d[Z]"
+        price: 100
+        permission: ""
+      XD:
+        display: "&d[Z]"
+        price: 100
+        permission: ""
+      XDD:
+        display: "&d[Z]"
+        price: 100
+        permission: ""
+      XDDD:
         display: "&d[Z]"
         price: 100
         permission: ""

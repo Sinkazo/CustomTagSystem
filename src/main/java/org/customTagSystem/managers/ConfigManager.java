@@ -35,4 +35,48 @@ public class ConfigManager {
         String suffix = plugin.getConfig().getString("tablist.suffix", " {tag}");
         return ChatColor.translateAlternateColorCodes('&', suffix);
     }
+
+    // Configuración de paginación
+    public int getTagsPerPage() {
+        return plugin.getConfig().getInt("pagination.tags-per-page", 28);
+    }
+
+    public int getNextPageSlot() {
+        return plugin.getConfig().getInt("pagination.next-page.slot", 50);
+    }
+
+    public String getNextPageMaterial() {
+        return plugin.getConfig().getString("pagination.next-page.material", "ARROW");
+    }
+
+    public String getNextPageName() {
+        String name = plugin.getConfig().getString("pagination.next-page.name", "&a&lPágina Siguiente »");
+        return ChatColor.translateAlternateColorCodes('&', name);
+    }
+
+    public int getPreviousPageSlot() {
+        return plugin.getConfig().getInt("pagination.previous-page.slot", 48);
+    }
+
+    public String getPreviousPageMaterial() {
+        return plugin.getConfig().getString("pagination.previous-page.material", "ARROW");
+    }
+
+    public String getPreviousPageName() {
+        String name = plugin.getConfig().getString("pagination.previous-page.name", "&c&l« Página Anterior");
+        return ChatColor.translateAlternateColorCodes('&', name);
+    }
+
+    public int getBackButtonSlot() {
+        return plugin.getConfig().getInt("pagination.back-button.slot", 49);
+    }
+
+    public String getBackButtonMaterial() {
+        return plugin.getConfig().getString("pagination.back-button.material", "BARRIER");
+    }
+
+    public String getBackButtonName() {
+        String name = plugin.getConfig().getString("pagination.back-button.name", "&c&l« Volver");
+        return ChatColor.translateAlternateColorCodes('&', name);
+    }
 }

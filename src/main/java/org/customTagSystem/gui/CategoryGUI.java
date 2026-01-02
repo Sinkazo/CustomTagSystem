@@ -22,25 +22,50 @@ public class CategoryGUI implements Listener {
     private final Player player;
     private final TagCategory category;
     private final Inventory inventory;
+    private final int page;
+    private final int maxPage;
+    private final int tagsPerPage;
 
     public CategoryGUI(CustomTagSystem plugin, Player player, TagCategory category) {
+        this(plugin, player, category, 1);
+    }
+
+    public CategoryGUI(CustomTagSystem plugin, Player player, TagCategory category, int page) {
         this.plugin = plugin;
         this.player = player;
         this.category = category;
-        this.inventory = Bukkit.createInventory(null, 54, "§8Tags » " + category.getDisplayName());
+        this.page = page;
+
+        // Obtener configuración de paginación
+        this.tagsPerPage = plugin.getConfigManager().getTagsPerPage();
+
+        // Calcular páginas totales
+        int totalTags = category.getTags().size();
+        this.maxPage = (int) Math.ceil((double) totalTags / tagsPerPage);
+
+        this.inventory = Bukkit.createInventory(null, 54, "§8Tags » " + category.getDisplayName() + " §8(Pág. " + page + "/" + maxPage + ")");
 
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         setupInventory();
     }
 
     private void setupInventory() {
-        int slot = 10;
-        for (Tag tag : category.getTags()) {
-            if (slot == 17) slot = 19;
-            if (slot == 26) slot = 28;
-            if (slot == 35) slot = 37;
-            if (slot >= 44) break;
+        // Slots para tags (28 espacios disponibles)
+        int[] tagSlots = {10, 11, 12, 13, 14, 15, 16,
+                19, 20, 21, 22, 23, 24, 25,
+                28, 29, 30, 31, 32, 33, 34,
+                37, 38, 39, 40, 41, 42, 43};
 
+        // Obtener tags de esta página
+        List<Tag> allTags = category.getTags();
+        int startIndex = (page - 1) * tagsPerPage;
+        int endIndex = Math.min(startIndex + tagsPerPage, allTags.size());
+
+        int slotIndex = 0;
+        for (int i = startIndex; i < endIndex; i++) {
+            if (slotIndex >= tagSlots.length) break;
+
+            Tag tag = allTags.get(i);
             boolean hasTag = plugin.getTagManager().hasTag(player, tag.getId());
             boolean isActive = tag.getId().equals(plugin.getTagManager().getActiveTag(player));
 
@@ -83,13 +108,9 @@ public class CategoryGUI implements Listener {
             }
 
             ItemStack item = createItem(material, displayName, lore);
-            inventory.setItem(slot, item);
-            slot++;
+            inventory.setItem(tagSlots[slotIndex], item);
+            slotIndex++;
         }
-
-        // Botón de volver
-        ItemStack backItem = createItem(Material.ARROW, "§c« Volver", "§7Volver al menú principal");
-        inventory.setItem(49, backItem);
 
         // Decoración
         ItemStack glass = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
@@ -102,6 +123,40 @@ public class CategoryGUI implements Listener {
         int[] decorSlots = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 27, 36, 17, 26, 35, 44, 45, 46, 47, 48, 50, 51, 52, 53};
         for (int decorSlot : decorSlots) {
             inventory.setItem(decorSlot, glass);
+        }
+
+        // Botón de volver (después de decoración para que no sea sobrescrito)
+        int backSlot = plugin.getConfigManager().getBackButtonSlot();
+        Material backMaterial = getMaterial(plugin.getConfigManager().getBackButtonMaterial());
+        String backName = plugin.getConfigManager().getBackButtonName();
+
+        ItemStack backItem = createItem(backMaterial, backName, "§7Volver al menú principal");
+        inventory.setItem(backSlot, backItem);
+
+        // Botón de página anterior (después de decoración para que no sea sobrescrito)
+        if (page > 1) {
+            int prevSlot = plugin.getConfigManager().getPreviousPageSlot();
+            Material prevMaterial = getMaterial(plugin.getConfigManager().getPreviousPageMaterial());
+            String prevName = plugin.getConfigManager().getPreviousPageName();
+
+            ItemStack prevItem = createItem(prevMaterial, prevName,
+                    "§7Página actual: §e" + page,
+                    "",
+                    "§eClick para ir a la página " + (page - 1));
+            inventory.setItem(prevSlot, prevItem);
+        }
+
+        // Botón de página siguiente (después de decoración para que no sea sobrescrito)
+        if (page < maxPage) {
+            int nextSlot = plugin.getConfigManager().getNextPageSlot();
+            Material nextMaterial = getMaterial(plugin.getConfigManager().getNextPageMaterial());
+            String nextName = plugin.getConfigManager().getNextPageName();
+
+            ItemStack nextItem = createItem(nextMaterial, nextName,
+                    "§7Página actual: §e" + page,
+                    "",
+                    "§eClick para ir a la página " + (page + 1));
+            inventory.setItem(nextSlot, nextItem);
         }
     }
 
@@ -124,6 +179,14 @@ public class CategoryGUI implements Listener {
         return createItem(material, name, loreList);
     }
 
+    private Material getMaterial(String materialName) {
+        try {
+            return Material.valueOf(materialName.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            return Material.PAPER;
+        }
+    }
+
     public void open() {
         player.openInventory(inventory);
     }
@@ -141,29 +204,46 @@ public class CategoryGUI implements Listener {
         ItemStack clicked = e.getCurrentItem();
         if (clicked == null || clicked.getType() == Material.AIR) return;
 
+        int slot = e.getSlot();
+
         // Botón volver
-        if (e.getSlot() == 49) {
+        if (slot == plugin.getConfigManager().getBackButtonSlot()) {
             new MainMenuGUI(plugin, player).open();
             return;
         }
 
-        // Buscar tag clickeado
-        int slot = e.getSlot();
-        int index = 0;
-        int checkSlot = 10;
+        // Botón página anterior
+        if (slot == plugin.getConfigManager().getPreviousPageSlot() && page > 1) {
+            new CategoryGUI(plugin, player, category, page - 1).open();
+            return;
+        }
 
-        for (Tag tag : category.getTags()) {
-            if (checkSlot == 17) checkSlot = 19;
-            if (checkSlot == 26) checkSlot = 28;
-            if (checkSlot == 35) checkSlot = 37;
+        // Botón página siguiente
+        if (slot == plugin.getConfigManager().getNextPageSlot() && page < maxPage) {
+            new CategoryGUI(plugin, player, category, page + 1).open();
+            return;
+        }
 
-            if (checkSlot == slot) {
-                handleTagClick(tag);
-                return;
+        // Verificar si es un slot de tag
+        int[] tagSlots = {10, 11, 12, 13, 14, 15, 16,
+                19, 20, 21, 22, 23, 24, 25,
+                28, 29, 30, 31, 32, 33, 34,
+                37, 38, 39, 40, 41, 42, 43};
+
+        int slotIndex = -1;
+        for (int i = 0; i < tagSlots.length; i++) {
+            if (tagSlots[i] == slot) {
+                slotIndex = i;
+                break;
             }
+        }
 
-            checkSlot++;
-            if (checkSlot >= 44) break;
+        if (slotIndex != -1) {
+            int tagIndex = (page - 1) * tagsPerPage + slotIndex;
+            if (tagIndex < category.getTags().size()) {
+                Tag tag = category.getTags().get(tagIndex);
+                handleTagClick(tag);
+            }
         }
     }
 
@@ -210,7 +290,7 @@ public class CategoryGUI implements Listener {
 
             // Actualizar GUI
             player.closeInventory();
-            new CategoryGUI(plugin, player, category).open();
+            new CategoryGUI(plugin, player, category, page).open();
         }
     }
 }
