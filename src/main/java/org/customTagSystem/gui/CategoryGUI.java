@@ -46,10 +46,15 @@ public class CategoryGUI implements Listener {
 
             Material material;
             List<String> lore = new ArrayList<>();
+            String displayName;
+
+            // Traducir el display del tag para mostrarlo correctamente
+            String translatedDisplay = org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay());
 
             if (hasTag) {
                 material = isActive ? Material.LIME_DYE : Material.PAPER;
-                lore.add("§7Vista previa: §r" + tag.getDisplay());
+                displayName = "§e" + tag.getName();
+                lore.add("§7Vista previa: §r" + translatedDisplay);
                 lore.add("");
                 if (isActive) {
                     lore.add("§a✔ Tag Activo");
@@ -60,7 +65,8 @@ public class CategoryGUI implements Listener {
                 }
             } else {
                 material = Material.GRAY_DYE;
-                lore.add("§7Vista previa: §r" + tag.getDisplay());
+                displayName = "§7" + tag.getName();
+                lore.add("§7Vista previa: §r" + translatedDisplay);
                 lore.add("");
                 lore.add("§7Estado: §cBloqueado");
                 lore.add("§7Precio: §6" + tag.getPrice() + " monedas");
@@ -76,7 +82,7 @@ public class CategoryGUI implements Listener {
                 }
             }
 
-            ItemStack item = createItem(material, "§e" + tag.getName(), lore);
+            ItemStack item = createItem(material, displayName, lore);
             inventory.setItem(slot, item);
             slot++;
         }
@@ -170,8 +176,9 @@ public class CategoryGUI implements Listener {
                 player.sendMessage(plugin.getConfigManager().getMessage("tag-already-active"));
             } else {
                 plugin.getTagManager().setActiveTag(player, tag.getId());
+                String translatedTag = org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay());
                 player.sendMessage(plugin.getConfigManager().getMessage("tag-activated")
-                        .replace("{tag}", tag.getDisplay()));
+                        .replace("{tag}", translatedTag));
                 player.closeInventory();
             }
         } else {
@@ -196,8 +203,9 @@ public class CategoryGUI implements Listener {
             // Comprar tag
             plugin.getEconomy().withdrawPlayer(player, tag.getPrice());
             plugin.getTagManager().unlockTag(player, tag.getId());
+            String translatedTag = org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay());
             player.sendMessage(plugin.getConfigManager().getMessage("tag-purchased")
-                    .replace("{tag}", tag.getDisplay())
+                    .replace("{tag}", translatedTag)
                     .replace("{price}", String.valueOf(tag.getPrice())));
 
             // Actualizar GUI

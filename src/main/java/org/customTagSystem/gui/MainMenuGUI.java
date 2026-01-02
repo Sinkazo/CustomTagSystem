@@ -33,10 +33,13 @@ public class MainMenuGUI implements Listener {
 
     private void setupInventory() {
         // Info del jugador
+        String activeTagDisplay = plugin.getTagManager().getActiveTagDisplay(player);
+        String activeTagText = activeTagDisplay.isEmpty() ? "§cNinguno" : activeTagDisplay;
+
         ItemStack infoItem = createItem(Material.PLAYER_HEAD,
                 "§6§l⭐ Tu Información",
                 "§7Tags desbloqueados: §e" + plugin.getTagManager().getUnlockedTagsCount(player),
-                "§7Tag activo: §r" + (plugin.getTagManager().getActiveTagDisplay(player).isEmpty() ? "§cNinguno" : plugin.getTagManager().getActiveTagDisplay(player)),
+                "§7Tag activo: §r" + activeTagText,
                 "",
                 "§7Explora las categorías para",
                 "§7desbloquear más tags!"

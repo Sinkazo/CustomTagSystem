@@ -8,6 +8,7 @@ import org.customTagSystem.models.Tag;
 import org.customTagSystem.models.TagCategory;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TagManager {
 
@@ -80,7 +81,7 @@ public class TagManager {
         if (tagId == null) return "";
 
         Tag tag = tags.get(tagId);
-        return tag != null ? tag.getDisplay() : "";
+        return tag != null ? org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay()) : "";
     }
 
     public void loadPlayerData(Player player) {
