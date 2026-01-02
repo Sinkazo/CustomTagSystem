@@ -46,6 +46,16 @@ public class MainMenuGUI implements Listener {
         );
         inventory.setItem(4, infoItem);
 
+        // Botón de personalización
+        ItemStack customizeItem = createItem(Material.PAINTING,
+                "§d§l⚙ Personalizar Tag",
+                "§7Cambia el color, estilo y",
+                "§7formato de tu tag activo.",
+                "",
+                "§eClick para personalizar"
+        );
+        inventory.setItem(40, customizeItem);
+
         // Categorías
         for (TagCategory category : plugin.getTagManager().getCategories()) {
             int slot = category.getSlot();
@@ -133,6 +143,12 @@ public class MainMenuGUI implements Listener {
             plugin.getTagManager().setActiveTag(player, null);
             player.sendMessage(plugin.getConfigManager().getMessage("tag-removed"));
             player.closeInventory();
+            return;
+        }
+
+        // Abrir personalización
+        if (e.getSlot() == 40) {
+            new org.customTagSystem.gui.CustomizationGUI(plugin, player).open();
             return;
         }
 

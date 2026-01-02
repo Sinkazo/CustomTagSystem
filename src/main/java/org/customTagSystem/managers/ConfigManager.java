@@ -79,4 +79,9 @@ public class ConfigManager {
         String name = plugin.getConfig().getString("pagination.back-button.name", "&c&l« Volver");
         return ChatColor.translateAlternateColorCodes('&', name);
     }
+
+    // Configuración de personalización
+    public double getCustomizationPrice(String path) {
+        return plugin.getConfig().getDouble("customization." + path + ".price", 0);
+    }
 }

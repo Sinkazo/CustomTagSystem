@@ -1,4 +1,3 @@
-
 # ═══════════════════════════════════════════════════════════
 #           CustomTagSystem - Sistema de Tags v1.0
 # ═══════════════════════════════════════════════════════════
@@ -47,8 +46,66 @@ messages:
   no-permission-tag: "&cNo tienes permiso para comprar este tag."
 
 # ═══════════════════════════════════════════════════════════
+#              SISTEMA DE PERSONALIZACIÓN DE TAGS
+# ═══════════════════════════════════════════════════════════
+customization:
+  # Colores disponibles
+  colors:
+    red:
+      price: 500
+    gold:
+      price: 500
+    yellow:
+      price: 500
+    green:
+      price: 500
+    aqua:
+      price: 500
+    blue:
+      price: 500
+    light_purple:
+      price: 500
+    dark_red:
+      price: 750
+    dark_green:
+      price: 750
+    dark_aqua:
+      price: 750
+    dark_blue:
+      price: 750
+    dark_purple:
+      price: 750
+    white:
+      price: 750
+    gray:
+      price: 500
+    dark_gray:
+      price: 500
+    black:
+      price: 750
+    rainbow:
+      price: 2000
+
+  # Estilos de texto
+  text_styles:
+    uppercase:
+      price: 300
+    lowercase:
+      price: 300
+    smallcaps:
+      price: 800
+    bold:
+      price: 400
+
+  # Formatos especiales
+  formats:
+    no_brackets:
+      price: 500
+
+# ═══════════════════════════════════════════════════════════
 #                      CATEGORÍAS DE TAGS
 # ═══════════════════════════════════════════════════════════
+
 categories:
 
   # ═══════════════════════════════════════════════════════════
@@ -59,123 +116,107 @@ categories:
     icon: "NAME_TAG"
     slot: 20
     tags:
-      A:
+      a:
         display: "&e[A]"
         price: 100
         permission: ""
-      B:
+      b:
         display: "&b[B]"
         price: 100
         permission: ""
-      C:
+      c:
         display: "&c[C]"
         price: 100
         permission: ""
-      D:
+      d:
         display: "&d[D]"
         price: 100
         permission: ""
-      E:
+      e:
         display: "&a[E]"
         price: 100
         permission: ""
-      F:
+      f:
         display: "&6[F]"
         price: 100
         permission: ""
-      G:
+      g:
         display: "&2[G]"
         price: 100
         permission: ""
-      H:
+      h:
         display: "&3[H]"
         price: 100
         permission: ""
-      I:
+      i:
         display: "&9[I]"
         price: 100
         permission: ""
-      J:
+      j:
         display: "&5[J]"
         price: 100
         permission: ""
-      K:
+      k:
         display: "&c[K]"
         price: 100
         permission: ""
-      L:
+      l:
         display: "&e[L]"
         price: 100
         permission: ""
-      M:
+      m:
         display: "&b[M]"
         price: 100
         permission: ""
-      N:
+      n:
         display: "&d[N]"
         price: 100
         permission: ""
-      ñ:
-        display: "&c[Ñ]"
-        price: 100
-        permission: ""
-      O:
+      o:
         display: "&a[O]"
         price: 100
         permission: ""
-      P:
+      p:
         display: "&6[P]"
         price: 100
         permission: ""
-      Q:
+      q:
         display: "&c[Q]"
         price: 100
         permission: ""
-      R:
+      r:
         display: "&e[R]"
         price: 100
         permission: ""
-      S:
+      s:
         display: "&b[S]"
         price: 100
         permission: ""
-      T:
+      t:
         display: "&3[T]"
         price: 100
         permission: ""
-      U:
+      u:
         display: "&5[U]"
         price: 100
         permission: ""
-      V:
+      v:
         display: "&a[V]"
         price: 100
         permission: ""
-      W:
+      w:
         display: "&6[W]"
         price: 100
         permission: ""
-      X:
+      x:
         display: "&c[X]"
         price: 100
         permission: ""
-      Y:
+      y:
         display: "&e[Y]"
         price: 100
         permission: ""
-      Z:
-        display: "&d[Z]"
-        price: 100
-        permission: ""
-      XD:
-        display: "&d[Z]"
-        price: 100
-        permission: ""
-      XDD:
-        display: "&d[Z]"
-        price: 100
-        permission: ""
-      XDDD:
+      z:
         display: "&d[Z]"
         price: 100
         permission: ""

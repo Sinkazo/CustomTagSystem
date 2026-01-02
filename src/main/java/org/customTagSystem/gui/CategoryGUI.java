@@ -259,7 +259,8 @@ public class CategoryGUI implements Listener {
                 String translatedTag = org.bukkit.ChatColor.translateAlternateColorCodes('&', tag.getDisplay());
                 player.sendMessage(plugin.getConfigManager().getMessage("tag-activated")
                         .replace("{tag}", translatedTag));
-                player.closeInventory();
+                // Actualizar inventario de forma fluida
+                refreshInventory();
             }
         } else {
             // Verificar permiso
@@ -288,9 +289,14 @@ public class CategoryGUI implements Listener {
                     .replace("{tag}", translatedTag)
                     .replace("{price}", String.valueOf(tag.getPrice())));
 
-            // Actualizar GUI
-            player.closeInventory();
-            new CategoryGUI(plugin, player, category, page).open();
+            // Actualizar inventario de forma fluida
+            refreshInventory();
         }
+    }
+
+    private void refreshInventory() {
+        // Limpiar y recargar solo el contenido necesario
+        inventory.clear();
+        setupInventory();
     }
 }

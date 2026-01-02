@@ -1,6 +1,7 @@
 package org.customTagSystem.database;
 
 import org.customTagSystem.CustomTagSystem;
+import org.customTagSystem.models.TagStyle;
 
 import java.io.File;
 import java.sql.*;
@@ -50,6 +51,23 @@ public class DatabaseManager {
                     "CREATE TABLE IF NOT EXISTS active_tags (" +
                             "uuid TEXT PRIMARY KEY," +
                             "tag_id TEXT" +
+                            ")"
+            );
+
+            statement.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS player_customizations (" +
+                            "uuid TEXT NOT NULL," +
+                            "customization_id TEXT NOT NULL," +
+                            "PRIMARY KEY (uuid, customization_id)" +
+                            ")"
+            );
+
+            statement.executeUpdate(
+                    "CREATE TABLE IF NOT EXISTS player_tag_styles (" +
+                            "uuid TEXT PRIMARY KEY," +
+                            "color TEXT DEFAULT 'default'," +
+                            "text_style TEXT DEFAULT 'normal'," +
+                            "remove_brackets INTEGER DEFAULT 0" +
                             ")"
             );
         } catch (SQLException e) {
@@ -122,6 +140,63 @@ public class DatabaseManager {
             statement.executeUpdate();
         } catch (SQLException e) {
             plugin.getLogger().severe("Error al establecer tag activo: " + e.getMessage());
+        }
+    }
+
+    // Métodos de personalización
+    public boolean hasCustomization(UUID uuid, String customizationId) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "SELECT 1 FROM player_customizations WHERE uuid = ? AND customization_id = ?")) {
+            statement.setString(1, uuid.toString());
+            statement.setString(2, customizationId);
+
+            ResultSet result = statement.executeQuery();
+            return result.next();
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Error al verificar personalización: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public void unlockCustomization(UUID uuid, String customizationId) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "INSERT OR IGNORE INTO player_customizations (uuid, customization_id) VALUES (?, ?)")) {
+            statement.setString(1, uuid.toString());
+            statement.setString(2, customizationId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Error al desbloquear personalización: " + e.getMessage());
+        }
+    }
+
+    public TagStyle getPlayerTagStyle(UUID uuid) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "SELECT color, text_style, remove_brackets FROM player_tag_styles WHERE uuid = ?")) {
+            statement.setString(1, uuid.toString());
+
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                String color = result.getString("color");
+                String textStyle = result.getString("text_style");
+                boolean removeBrackets = result.getInt("remove_brackets") == 1;
+                return new TagStyle(color, textStyle, removeBrackets);
+            }
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Error al obtener estilo de tag: " + e.getMessage());
+        }
+        return new TagStyle();
+    }
+
+    public void savePlayerTagStyle(UUID uuid, TagStyle style) {
+        try (PreparedStatement statement = connection.prepareStatement(
+                "INSERT OR REPLACE INTO player_tag_styles (uuid, color, text_style, remove_brackets) VALUES (?, ?, ?, ?)")) {
+            statement.setString(1, uuid.toString());
+            statement.setString(2, style.getColor());
+            statement.setString(3, style.getTextStyle());
+            statement.setInt(4, style.isRemoveBrackets() ? 1 : 0);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            plugin.getLogger().severe("Error al guardar estilo de tag: " + e.getMessage());
         }
     }
 
